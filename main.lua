@@ -26,30 +26,6 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("events"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
 
-local Sell = Tabs.Main:AddToggle("Auto attack", {Title = "Auto Sell", Default = false})
-
-Sell:OnChanged(function()
-    while Sell.Value do
-        wait(1)
-        local args = {
-            [1] = "SellBubble"
-        }
-        
-        game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))
-    end
-end)
-local Best = Tabs.Main:AddToggle("Auto attack", {Title = "Auto Equip Best", Default = false})
-
-Best:OnChanged(function()
-    while Best.Value do
-        wait(5)
-        local args = {
-            [1] = "EquipBestPets"
-        }
-        
-        game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))        
-    end
-end)
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
 SaveManager:IgnoreThemeSettings()
