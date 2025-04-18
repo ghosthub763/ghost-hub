@@ -1,74 +1,68 @@
-if game.PlaceId == 3652625463 then
-    local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/jensonhirst/Orion/main/source"))()
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
-    local Window = OrionLib:MakeWindow({
-        Name = "ghost hub ",
-        HidePremium = false,
-        SaveConfig = true,
-        ConfigFolder = "Dev ghost",
-        IntroEnabled = false
-    })
 
-    -- AutoClick control
-    local autoClickEnabled = false
+local Window = Fluent:CreateWindow({
+    Title = "With ❤️ Ghost Hub",
+    SubTitle = "",
+    TabWidth = 100,
+    Size = UDim2.fromOffset(430, 300),
+    Acrylic = false,
+    Theme = "Amethyst",
+    MinimizeKey = Enum.KeyCode.LeftControl
+})
+local Tabs = {
+    Main = Window:AddTab({ Title = "• Infor", Icon = "rbxassetid://18831448204" }),
+    Settings = Window:AddTab({ Title = "• Settings", Icon = "rbxassetid://18319394996" })
+}
+Window:SelectTab(1)
 
-    local function startAutoClick()
-        task.spawn(function()
-            while autoClickEnabled do
-                pcall(function()
-                    local vim = game:GetService("VirtualInputManager")
-                    vim:SendMouseButtonEvent(0, 0, 0, true, game, 0)
-                    vim:SendMouseButtonEvent(0, 0, 0, false, game, 0)
-                end)
-                task.wait(0.1)
-            end
-        end)
+local attack = Tabs.Main:AddToggle("Auto attack", {Title = "Auto Click", Default = false})
+
+attack:OnChanged(function()
+    while attack.Value do
+        wait()
+        local args = {
+            [1] = "BlowBubble"
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))
+        
     end
+end)
+local Sell = Tabs.Main:AddToggle("Auto attack", {Title = "Auto Sell", Default = false})
 
-    local Main = Window:MakeTab({
-        Name = "auto farm",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
+Sell:OnChanged(function()
+    while Sell.Value do
+        wait(1)
+        local args = {
+            [1] = "SellBubble"
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))
+    end
+end)
+local Best = Tabs.Main:AddToggle("Auto attack", {Title = "Auto Equip Best", Default = false})
 
-    local Section = Main:AddSection({
-        Name = "Main"
-    })
-
-    -- Auto Sell
-    local autoSellEnabled = false
-
-    Main:AddToggle({
-        Name = "auto sell",
-        Default = false,
-        Callback = function(Value)
-            autoSellEnabled = Value
-            if autoSellEnabled then
-                task.spawn(function()
-                    while autoSellEnabled do
-                        pcall(function()
-                            game:GetService("ReplicatedStorage").Events.SellRequest:FireServer()
-                        end)
-                        task.wait(0.5)
-                    end
-                end)
-            end
-        end
-    })
-
-    -- AutoClick
-    Main:AddToggle({
-        Name = "AutoClick",
-        Default = false,
-        Callback = function(state)
-            autoClickEnabled = state
-            if autoClickEnabled then
-                startAutoClick()
-            end
-        end
-    })
-    
-end
+Best:OnChanged(function()
+    while Best.Value do
+        wait(5)
+        local args = {
+            [1] = "EquipBestPets"
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))        
+    end
+end)
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes({})
+InterfaceManager:SetFolder("FluentScriptHub")
+SaveManager:SetFolder("FluentScriptHub/specific-game")
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
 
 
 
