@@ -1,29 +1,29 @@
-dif game.PleaceId == 4058282580 then
+if game.PlaceId == 4058282580 then
     
+
 
     local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/jensonhirst/Orion/main/source')))()
 
-    local Window = OrionLib:MakeWindow({Name = "ghost hub", HidePremium = false, SaveConfig = true, ConfigFolder = "ghost", IntroEnable = false})
+    local Window = OrionLib:MakeWindow({Name = "Ghost hub", HidePremium = false, SaveConfig = true, ConfigFolder = "Dev Ghost", IntroEnable = false})
 
-    local main = Window:MakeTab({
-        Name = "auto farm",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
+
+
+    local Main = Window:MakeTab({
+            Name = "Luna",
+            Icon = "rbxassetid://4483345998",
+            PremiumOnly = false
+    })
+    local Section = Main:AddSection({
+        Name = "Auto-farm"
     })
 
-    local Section = main:AddSection({
-        Name = "auto farm"
-    })
-
-    main:AddToggle({
-        Name = "autosell",
+    Main:AddToggle({
+        Name = "Auto-sell",
         Default = false,
-        Callback = function(Value)
-        pcall(function ()
-            game:GetService("ReplicatedStorage").Events.SellRequest:FireServer()
-        end)
-        task.wait(0.1)
-        
+        pcall = function(Value)
+            game:GetService("ReplicatedStorage").Events.SellRequest:FireServer()  
+            task.wait(0.1)
+
         end    
     })
 end
@@ -39,7 +39,13 @@ end
 
 
 
-end
+
+
+
+
+
+
+
 
 
 
