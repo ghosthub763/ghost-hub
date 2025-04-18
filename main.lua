@@ -20,17 +20,12 @@ Window:SelectTab(1)
 
 local attack = Tabs.Main:AddToggle("Auto attack", {Title = "Auto Click", Default = false})
 
-attack:OnChanged(function()
-    while attack.Value do
-        wait()
-        local args = {
-            [1] = "BlowBubble"
-        }
-        
-        game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer(unpack(args))
-        
-    end
-end)
+local args = {
+    [1] = "attack"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("events"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
 local Sell = Tabs.Main:AddToggle("Auto attack", {Title = "Auto Sell", Default = false})
 
 Sell:OnChanged(function()
