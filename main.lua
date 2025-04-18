@@ -20,13 +20,13 @@ if game.PlaceId == 74260430392611  then
                     vim:SendMouseButtonEvent(0, 0, 0, true, game, 0)
                     vim:SendMouseButtonEvent(0, 0, 0, false, game, 0)
                 end)
-                task.wait(0.1)
+                task.wait(0.9)
             end
         end)
     end
 
     local Main = Window:MakeTab({
-        Name = "auto farmi",
+        Name = "auto farm",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
@@ -39,7 +39,7 @@ if game.PlaceId == 74260430392611  then
     local autoSellEnabled = false
 
     Main:AddToggle({
-        Name = "Auto Vende",
+        Name = "auto sell",
         Default = false,
         Callback = function(Value)
             autoSellEnabled = Value
@@ -68,7 +68,6 @@ if game.PlaceId == 74260430392611  then
         end
     })
 end
-
 
 
 
