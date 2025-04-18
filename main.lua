@@ -1,4 +1,4 @@
-if game.PlaceId == 74260430392611  then
+if game.PlaceId == 3652625463 then
     local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/jensonhirst/Orion/main/source"))()
 
     local Window = OrionLib:MakeWindow({
@@ -20,7 +20,7 @@ if game.PlaceId == 74260430392611  then
                     vim:SendMouseButtonEvent(0, 0, 0, true, game, 0)
                     vim:SendMouseButtonEvent(0, 0, 0, false, game, 0)
                 end)
-                task.wait(0.9)
+                task.wait(0.1)
             end
         end)
     end
@@ -67,8 +67,8 @@ if game.PlaceId == 74260430392611  then
             end
         end
     })
+    
 end
-
 
 
 
