@@ -1,51 +1,72 @@
-if game.PlaceId == 74260430392611 then
-    
+if game.PlaceId == 74260430392611  then
+    local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/jensonhirst/Orion/main/source"))()
 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/jensonhirst/Orion/main/source')))()
+    local Window = OrionLib:MakeWindow({
+        Name = "ghost hub ",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "Dev ghost",
+        IntroEnabled = false
+    })
 
-local Window = OrionLib:MakeWindow({Name = "Ghost hub", HidePremium = false, SaveConfig = true, ConfigFolder = "Dev Ghost", IntroEnable = false})
+    -- AutoClick control
+    local autoClickEnabled = false
 
-
-local Main = Window:MakeTab({
-    Name = "Luna",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
-
-local Section = Main:AddSection({
-    Name = "Auto-farm"
-})
-
-_G.loopAtivo = false
-
-Main:AddToggle({
-    Name = "Loop de Exemplo",
-    Default = false,
-    Callback = function(value)
-        _G.loopAtivo = value
-        while _G.loopAtivo do
-            print("Executando ação...")
-            task.wait(1)
-        end
+    local function startAutoClick()
+        task.spawn(function()
+            while autoClickEnabled do
+                pcall(function()
+                    local vim = game:GetService("VirtualInputManager")
+                    vim:SendMouseButtonEvent(0, 0, 0, true, game, 0)
+                    vim:SendMouseButtonEvent(0, 0, 0, false, game, 0)
+                end)
+                task.wait(0.1)
+            end
+        end)
     end
-})
 
+    local Main = Window:MakeTab({
+        Name = "auto farmi",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
 
-main:AddToggle({
-    Name = "AutoClick",
-    Default = false,
-    Callback = function(state)
-        _G.click = state
-        while _G.click do
-            pcall(function()
-                game:GetService("ReplicatedStorage").Events.Click:FireServer()
-            end)
-            task.wait(0.1)
+    local Section = Main:AddSection({
+        Name = "Main"
+    })
+
+    -- Auto Sell
+    local autoSellEnabled = false
+
+    Main:AddToggle({
+        Name = "Auto Vende",
+        Default = false,
+        Callback = function(Value)
+            autoSellEnabled = Value
+            if autoSellEnabled then
+                task.spawn(function()
+                    while autoSellEnabled do
+                        pcall(function()
+                            game:GetService("ReplicatedStorage").Events.SellRequest:FireServer()
+                        end)
+                        task.wait(0.5)
+                    end
+                end)
+            end
         end
-    end
-})
+    })
 
-    
+    -- AutoClick
+    Main:AddToggle({
+        Name = "AutoClick",
+        Default = false,
+        Callback = function(state)
+            autoClickEnabled = state
+            if autoClickEnabled then
+                startAutoClick()
+            end
+        end
+    })
 end
 
 
