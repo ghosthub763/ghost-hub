@@ -1,4 +1,4 @@
-if game.PleaceId == 4058282580 then
+dif game.PleaceId == 4058282580 then
     
 
     local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/jensonhirst/Orion/main/source')))()
@@ -26,7 +26,7 @@ if game.PleaceId == 4058282580 then
         
         end    
     })
-
+end
 
 
 
